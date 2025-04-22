@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中文维基 - 工匠：技艺革新</title>
+    <style>
+        :root {
+            --primary-color: #5b26f7;
+            --primary-light: #e7e1ff;
+            --secondary-color: #f8f9fa;
+            --text-color: #1e1e1e;
+            --text-secondary: #6c757d;
+            --border-color: #e9ecef;
+            --radius: 14px;
+            --transition: all 0.3s ease;
+            --card-bg: #ffffff;
+            --content-bg: #f8f9fa;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #935bf8;
+            --primary-light: #562aef;
+            --secondary-color: #1e1e2d;
+            --text-color: #e9e9e9;
+            --text-secondary: #a8aab3;
+            --border-color: #333647;
+            --card-bg: #252533;
+            --content-bg: #1e1e2d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--content-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: #3d1c9e;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background-color: var(--card-bg);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        .logo-icon {
+            font-size: 26px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+            max-width: 90%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* 主要内容区域 */
+        .main-container {
+            max-width: 1200px;
+            margin: 24px auto;
+            display: flex;
+            gap: 24px;
+            padding: 0 16px;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        /* 内容区域 */
+        .content {
+            flex-grow: 1;
+        }
+
+        .page-header {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-color);
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #3d1c9e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(91, 38, 247, 0.2);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+        }
+
+        .page-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .page-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .page-tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .page-tab:hover {
+            color: var(--primary-color);
+        }
+
+        .page-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .page-content {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+        }
+
+        .content-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-color);
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+        }
+
+        .content-text {
+            color: var(--text-color);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .content-list {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .content-list li {
+            margin-bottom: 8px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .content-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .highlight {
+            background-color: rgba(91, 38, 247, 0.1);
+            color: var(--primary-color);
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-color);
+        }
+
+        /* 广告区域 */
+        .ad-container {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin: 24px auto;
+            max-width: 1000px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--card-bg);
+            padding: 30px 0;
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 960px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                width: 60%;
+            }
+
+            .page-actions {
+                flex-wrap: wrap;
+            }
+
+            .page-header, .page-content {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .search-container {
+                width: 100%;
+                margin: 12px 0;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes ripple {
+            0% { transform: scale(0.1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* 嵌入内容样式 */
+        .embed-container {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: var(--radius);
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .embed-container:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight-box {
+            background-color: rgba(255, 255, 0, 0.1);
+            padding: 8px;
+            border-radius: 4px;
+            margin: 5px 0;
+            display: inline-block;
+        }
+
+        .highlight-box.red {
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+
+        .highlight-box.orange {
+            background-color: rgba(255, 165, 0, 0.1);
+        }
+
+        .highlight-box.yellow {
+            background-color: rgba(255, 255, 0, 0.1);
+        }
+
+        /* 下载按钮样式 */
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-btn i {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        /* 社区链接样式 */
+        .community-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .community-link {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .community-link:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .community-link i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        /* 主题切换动画 */
+        body[data-theme="dark"] .navbar {
+            animation: navbarTransition 0.5s forwards;
+        }
+
+        @keyframes navbarTransition {
+            from {
+                background-color: transparent;
+            }
+            to {
+                background-color: var(--card-bg);
+            }
+        }
+
+        /* 侧边栏卡片样式 */
+        .sidebar-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            padding: 24px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-color);
+            backdrop-filter: blur(10px);
+            background-clip: padding-box;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .sidebar-card:hover {
+            transform: translateX(5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: calc(var(--radius) / 2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(91, 38, 247, 0.08);
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            font-weight: 600;
+        }
+
+        .nav-link .icon {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: rgba(91, 38, 247, 0.1);
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover .icon, .nav-link.active .icon {
+            background-color: var(--primary-color);
+            color: var(--card-bg);
+            transform: scale(1.1);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-color);
+            opacity: 0;
+            transition: var(--transition);
+            border-radius: calc(var(--radius) / 2);
+        }
+
+        .nav-link:hover::before, .nav-link.active::before {
+            opacity: 0.1;
+        }
+
+        .skeleton {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .skeleton-title {
+            height: 24px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--card-bg), var(--secondary-color));
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .skeleton-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .skeleton-item {
+            height: 36px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--card-bg), var(--secondary-color));
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 4px;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <span>中文维基</span>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="搜索内容...">
+            </div>
+
+            <button class="theme-toggle" id="themeToggle">🌓</button>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <div class="main-container">
+        <!-- 侧边栏 -->
+        <div class="sidebar" id="sidebar"></div>
+
+        <!-- 内容区域 -->
+        <div class="content">
+            <div class="page-header">
+                <h1 class="page-title">工匠：技艺革新</h1>
+                <div class="page-actions">
+                    <button class="btn btn-primary">
+                        <span>✏️</span> 编辑
+                    </button>
+                    <button class="btn btn-outline">
+                        <span>⏱️</span> 历史
+                    </button>
+                    <button class="btn btn-outline">
+                        <span>💬</span> 讨论
+                    </button>
+                    <button class="btn btn-outline">
+                        <span>🔗</span> 链接
+                    </button>
+                </div>
+                <div class="page-tabs">
+                    <div class="page-tab active">
+                        <span>📄</span> 内容
+                    </div>
+                    <div class="page-tab">
+                        <span>💬</span> 讨论
+                    </div>
+                    <div class="page-tab">
+                        <span>📊</span> 统计
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <div class="content-section">
+                    <p class="content-text">
+                        <mark class="highlight-box orange">工匠：技艺革新</mark>（英文名：Construt：Technological Innovation，简称：CTI）是一个基于Minecraft 1.19.2版本的modpack，目前处于0.35测试版。开发版本为forge 43.4.2，属于中高度魔改的科技类整合包。
+                    </p>
+
+                    <p class="content-text">
+                        <mark class="highlight-box red">历史版本</mark>：[点击查看历史版本](https://bbsmc.net/modpack/cti/versions)
+                    </p>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">下载</h2>
+                    <div class="download-btn">
+                        <i>⬇️</i>
+                        <a href="https://bbsmc.net/modpack/cti" target="_blank">客户端下载</a>
+                    </div>
+
+                    <div class="download-btn">
+                        <i>⬇️</i>
+                        <a href="https://xinian.usells.com/p/YOmKVC" target="_blank">服务端下载</a>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">社区</h2>
+                    <div class="community-links">
+                        <a href="#" class="community-link">
+                            <i>💬</i>
+                            <span>官方QQ群（闲聊）：761155624</span>
+                        </a>
+                        <a href="#" class="community-link">
+                            <i>❓</i>
+                            <span>答疑群：698798364</span>
+                        </a>
+                    </div>
+
+                    <div class="community-links">
+                        <a href="https://github.com/dreamforSh/CTIwiki/issues" target="_blank" class="community-link">
+                            <i>🐛</i>
+                            <span>提交问题</span>
+                        </a>
+                        <a href="https://github.com/dreamforSh/CTIwiki/pulls" target="_blank" class="community-link">
+                            <i>ʃ</i>
+                            <span>提交Pull Request</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">简介</h2>
+                    <p class="content-text">
+                        本整合包是以<a href="https://www.mcmod.cn/class/3725.html" target="_blank">匠魂3</a>为核心开发的中高度魔改的科技类整合包。整合包内设计了多样化的流程和场景，便于玩家在体验众多科技模组、冒险模组的同时也能全方位地体验匠魂模组。
+                    </p>
+
+                    <p class="content-text">
+                        <mark class="highlight-box orange">整合包具有许多独特的匠魂武器和工具以及特点各异的材料可供玩家探索和体验，利用自己亲手组装出来的强大工具去击败世界各地的邪恶boss，探索并开发不同的维度。</mark>
+                    </p>
+
+                    <p class="content-text">
+                        <mark class="highlight-box orange">同时，作为核心玩法的科技线也可以让你在闲暇之余有事可做。本包添加了一套中等难度的科技主线，添加了大量原创的素材合成路线，能够在核心模组不变的情况下给你带来不一样的产线搭建体验。</mark>
+                    </p>
+
+                    <p class="content-text">
+                        <mark class="highlight-box yellow">如果你想尝试一个有较多魔改但又不至于太难的科技整合包，这部分可能会适合你。</mark>
+                    </p>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">整合包状态</h2>
+                    <p class="content-text">
+                        <mark class="highlight-box red">2024/12/08：整合包现在进入公测阶段，已经公开供大家游玩，此版本有完整的任务线，全流程完全可玩，商店系统和抽奖系统尚未完工。</mark>
+                    </p>
+
+                    <p class="content-text">
+                        此后整合包会根据玩家反馈的意见进行调整性更新，或者根据新学会的技术发布内容性更新。此后整合包会进入不定期更新阶段，在修复了较严重的bug或者添加了足够多的内容后发布更新。公测版会一直延续到玩法、数值稳定且bug较少，此后便是正式版。正式版目前并没有确切的发布日期。进入正式版后我们有可能会开始向1.20移植或者着手开始写新包。
+                    </p>
+
+                    <p class="content-text">
+                        <mark class="highlight-box">测试版中要完成的内容：</mark>
+                    </p>
+                    <ul class="content-list">
+                        <li>战斗平衡。</li>
+                        <li>生产力平衡。</li>
+                        <li>减少后期高性能占用科技类模组的生产方式使用。</li>
+                        <li>补全部分合成素材的匠魂材料（比如维奥合金、石墨烯等）。</li>
+                        <li>新的具有特殊资源的外星维度。</li>
+                    </ul>
+
+                    <p class="content-text">
+                        <mark class="highlight-box">测试版中要研究的内容（制作组目前还不会写这些）：</mark>
+                    </p>
+                    <ul class="content-list">
+                        <li>地物、噪声生成器。</li>
+                        <li>自定义沉浸工程多方快结构。</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">开源地址</h2>
+                    <p class="content-text">
+                        <mark class="highlight-box yellow">本站开源地址：</mark> [<mark class="highlight-box yellow">https://github.com/dreamforSh/CTIwiki</mark>](https://github.com/dreamforSh/CTIwiki)
+                    </p>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">推荐服务</h2>
+                    <div class="download-btn">
+                        <i>📊</i>
+                        <a href="https://started.ink/?ref=xinian" target="_blank">面板服务器购买推荐，优惠码：24cti</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">使用条款</a>
+                <a href="#">隐私政策</a>
+                <a href="#">联系我们</a>
+                <a href="#">帮助中心</a>
+            </div>
+            <div class="copyright">
+                © 2024 中文维基. 保留所有权利。
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 加载侧边栏
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('sidebar.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('sidebar').innerHTML = html;
+                    // 初始化侧边栏导航链接的点击事件
+                    const navLinks = document.querySelectorAll('.nav-link');
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            navLinks.forEach(l => l.classList.remove('active'));
+                            this.classList.add('active');
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('加载侧边栏时出错:', error);
+                });
+
+            // 深色/浅色主题切换
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                body.setAttribute('data-theme', savedTheme);
+            }
+
+            themeToggle.addEventListener('click', () => {
+                if (body.getAttribute('data-theme') === 'dark') {
+                    body.removeAttribute('data-theme');
+                    localStorage.removeItem('theme');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // 页面标签切换
+            const tabs = document.querySelectorAll('.page-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-color: #5b26f7;
+            --primary-light: #e7e1ff;
+            --secondary-color: #f8f9fa;
+            --text-color: #1e1e1e;
+            --text-secondary: #6c757d;
+            --border-color: #e9ecef;
+            --radius: 14px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --card-bg: #ffffff;
+            --content-bg: #f8f9fa;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --card-hover-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #935bf8;
+            --primary-light: #562aef;
+            --secondary-color: #1e1e2d;
+            --text-color: #e9e9e9;
+            --text-secondary: #a8aab3;
+            --border-color: #333647;
+            --card-bg: #252533;
+            --content-bg: #1e1e2d;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --card-hover-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--content-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        /* 侧边栏整体动效 */
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 卡片动效 */
+        .sidebar-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            padding: 24px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            opacity: 1;
+            will-change: transform, opacity;
+            border-left: 4px solid var(--primary-color);
+            backdrop-filter: blur(10px);
+            background-clip: padding-box;
+        }
+
+        .sidebar-card:hover {
+            transform: translateX(5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        /* 标题动效 */
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        /* 导航项动效 */
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: calc(var(--radius) / 2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(91, 38, 247, 0.08);
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            font-weight: 600;
+        }
+
+        .nav-link .icon {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: rgba(91, 38, 247, 0.1);
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover .icon, .nav-link.active .icon {
+            background-color: var(--primary-color);
+            color: var(--card-bg);
+            transform: scale(1.1);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-color);
+            opacity: 0;
+            transition: var(--transition);
+            border-radius: calc(var(--radius) / 2);
+        }
+
+        .nav-link:hover::before, .nav-link.active::before {
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body>
+    <!-- 侧边栏内容 -->
+    <div class="sidebar">
+        <div class="sidebar-card">
+            <h3 class="sidebar-title"><span>📄</span> 维基导航</h3>
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="README.md" class="nav-link active">
+                        <span class="icon">🏠</span>
+                        <span class="label">主页</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="changelog/README.md" class="nav-link">
+                        <span class="icon">🔀</span>
+                        <span class="label">更新日志</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="modlist.md" class="nav-link">
+                        <span class="icon">🧩</span>
+                        <span class="label">模组列表</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="sidebar-card">
+            <h3 class="sidebar-title"><span>⚙️</span> 工具</h3>
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="jiang-hun-gong-ju/README.md" class="nav-link">
+                        <span class="icon">📜</span>
+                        <span class="label">匠魂工具</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="jiang-hun-kui-jia/README.md" class="nav-link">
+                        <span class="icon">📜</span>
+                        <span class="label">匠魂盔甲</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="jiang-hun-qiang-hua/README.md" class="nav-link">
+                        <span class="icon">📜</span>
+                        <span class="label">匠魂强化</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="sidebar-card">
+            <h3 class="sidebar-title"><span>📚</span> 教程与攻略</h3>
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="tutorial/README.md" class="nav-link">
+                        <span class="icon">📜</span>
+                        <span class="label">整合包外部教程与攻略</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="sidebar-card">
+            <h3 class="sidebar-title"><span>❓</span> 其他</h3>
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="fqa.md" class="nav-link">
+                        <span class="icon">📝</span>
+                        <span class="label">FQA</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="xu-ke-license.md" class="nav-link">
+                        <span class="icon">📝</span>
+                        <span class="label">许可 & License</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 初始化侧边栏导航链接的点击事件
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
