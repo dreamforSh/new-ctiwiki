@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        /* 这里是原有的 CSS 样式 */
         :root {
             --primary-color: #5b26f7;
             --primary-light: #e7e1ff;
@@ -183,19 +184,19 @@
             <h3 class="sidebar-title"><span>📄</span> 维基导航</h3>
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a href="README.md" class="nav-link active">
+                    <a href="home.html" class="nav-link active">
                         <span class="icon">🏠</span>
                         <span class="label">主页</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="changelog/README.md" class="nav-link">
+                    <a href="/changelog/main.html" class="nav-link">
                         <span class="icon">🔀</span>
                         <span class="label">更新日志</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="modlist.md" class="nav-link">
+                    <a href="modlist.html" class="nav-link">
                         <span class="icon">🧩</span>
                         <span class="label">模组列表</span>
                     </a>
@@ -207,19 +208,19 @@
             <h3 class="sidebar-title"><span>⚙️</span> 工具</h3>
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a href="jiang-hun-gong-ju/README.md" class="nav-link">
+                    <a href="jiang-hun-gong-ju.html" class="nav-link">
                         <span class="icon">📜</span>
                         <span class="label">匠魂工具</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="jiang-hun-kui-jia/README.md" class="nav-link">
+                    <a href="jiang-hun-kui-jia.html" class="nav-link">
                         <span class="icon">📜</span>
                         <span class="label">匠魂盔甲</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="jiang-hun-qiang-hua/README.md" class="nav-link">
+                    <a href="jiang-hun-qiang-hua.html" class="nav-link">
                         <span class="icon">📜</span>
                         <span class="label">匠魂强化</span>
                     </a>
@@ -231,7 +232,7 @@
             <h3 class="sidebar-title"><span>📚</span> 教程与攻略</h3>
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a href="tutorial/README.md" class="nav-link">
+                    <a href="tutorial.html" class="nav-link">
                         <span class="icon">📜</span>
                         <span class="label">整合包外部教程与攻略</span>
                     </a>
@@ -243,13 +244,13 @@
             <h3 class="sidebar-title"><span>❓</span> 其他</h3>
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a href="fqa.md" class="nav-link">
+                    <a href="FQA.html" class="nav-link">
                         <span class="icon">📝</span>
                         <span class="label">FQA</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="xu-ke-license.md" class="nav-link">
+                    <a href="xu-ke-license.html" class="nav-link">
                         <span class="icon">📝</span>
                         <span class="label">许可 & License</span>
                     </a>
@@ -259,14 +260,21 @@
     </div>
 
     <script>
-        // 初始化侧边栏导航链接的点击事件
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('.nav-link');
+
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault();
+                    const href = this.getAttribute('href');
+
+                    // 移除所有链接的 active 类
                     navLinks.forEach(l => l.classList.remove('active'));
+
+                    // 添加 active 类到当前点击的链接
                     this.classList.add('active');
+
+                    // 不再阻止默认行为，直接跳转到目标页面
+                    // 如果页面不存在，浏览器会自动显示 404 页面
                 });
             });
         });

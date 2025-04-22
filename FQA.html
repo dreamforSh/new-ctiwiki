@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FQA - 游戏常见问题解答</title>
+    <style>
+        :root {
+            --primary-color: #5b26f7;
+            --primary-light: #e7e1ff;
+            --secondary-color: #f8f9fa;
+            --text-color: #1e1e1e;
+            --text-secondary: #6c757d;
+            --border-color: #e9ecef;
+            --radius: 14px;
+            --transition: all 0.3s ease;
+            --card-bg: #ffffff;
+            --content-bg: #f8f9fa;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #935bf8;
+            --primary-light: #562aef;
+            --secondary-color: #1e1e2d;
+            --text-color: #e9e9e9;
+            --text-secondary: #a8aab3;
+            --border-color: #333647;
+            --card-bg: #252533;
+            --content-bg: #1e1e2d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--content-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: #3d1c9e;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background-color: var(--card-bg);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        .logo-icon {
+            font-size: 26px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+            max-width: 90%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            background-color: rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .search-input:focus + .search-icon {
+            color: var(--primary-color);
+        }
+
+        /* 主要内容区域 */
+        .main-container {
+            max-width: 1200px;
+            margin: 24px auto;
+            display: flex;
+            gap: 24px;
+            padding: 0 16px;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        /* 内容区域 */
+        .content {
+            flex-grow: 1;
+        }
+
+        .page-header {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: var(--transition);
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-color);
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #3d1c9e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(91, 38, 247, 0.2);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+        }
+
+        .page-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .page-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .page-tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .page-tab:hover {
+            color: var(--primary-color);
+        }
+
+        .page-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .page-content {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+        }
+
+        .content-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-color);
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            transition: var(--transition);
+        }
+
+        .section-title:hover {
+            transform: translateX(5px);
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .question-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .question-header:hover {
+            color: var(--primary-color);
+        }
+
+        .question-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .code {
+            background-color: rgba(91, 38, 247, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .code:hover {
+            background-color: rgba(91, 38, 247, 0.2);
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--card-bg);
+            padding: 30px 0;
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        footer:hover {
+            background-color: var(--primary-light);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 960px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                width: 60%;
+            }
+
+            .page-actions {
+                flex-wrap: wrap;
+            }
+
+            .page-header, .page-content {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .search-container {
+                width: 100%;
+                margin: 12px 0;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+        }
+
+        /* 侧边栏导航 */
+        .fqa-sidebar {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .fqa-sidebar:hover {
+            transform: translateX(10px);
+        }
+
+        .fqa-sidebar-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-color);
+        }
+
+        .fqa-nav-list {
+            list-style: none;
+        }
+
+        .fqa-nav-item {
+            margin-bottom: 8px;
+        }
+
+        .fqa-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            border-radius: var(--radius);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .fqa-nav-link:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .fqa-nav-link.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .fqa-nav-link i {
+            font-size: 16px;
+        }
+
+        /* 动效 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatAnimation {
+            0% {
+                transform: translateY(0px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+            50% {
+                transform: translateY(-10px);
+                box-shadow: 0 14px 25px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                transform: translateY(0px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <span>CTI Wiki</span>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="搜索内容...">
+            </div>
+
+            <button class="theme-toggle" id="themeToggle">🌓</button>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <div class="main-container">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="fqa-sidebar">
+                <h3 class="fqa-sidebar-title">常见问题分类</h3>
+                <ul class="fqa-nav-list">
+                    <li class="fqa-nav-item">
+                        <a href="#installation" class="fqa-nav-link active">
+                            <i>🎮</i> 安装与启动
+                        </a>
+                    </li>
+                    <li class="fqa-nav-item">
+                        <a href="#exploration" class="fqa-nav-link">
+                            <i>🗺️</i> 探索与资源
+                        </a>
+                    </li>
+                    <li class="fqa-nav-item">
+                        <a href="#industry" class="fqa-nav-link">
+                            <i>🏭</i> 工业与制作
+                        </a>
+                    </li>
+                    <li class="fqa-nav-item">
+                        <a href="#other" class="fqa-nav-link">
+                            <i>🔧</i> 其他问题
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 内容区域 -->
+        <div class="content">
+            <div class="page-header">
+                <h1 class="page-title">FQA - 游戏常见问题解答</h1>
+            </div>
+
+            <div class="page-content">
+                <div class="content-section">
+                    <h2 class="section-title">游戏安装与启动</h2>
+                    <div class="question-card" id="installation">
+                        <div class="question-header">
+                            游戏安装失败
+                        </div>
+                        <div class="question-content">
+                            <p>首先注意安装方式：所有版本都使用安装包格式，直接拖入启动器窗口或在启动器内寻找 <strong>安装整合包</strong> 字样即可安装，无需解压。</p>
+                            <p>若安装方式没有问题则一般由网络问题引起，建议尝试更换网络/使用VPN/更换启动器。绝大多数情况下都可以解决。</p>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            游戏一直卡在加载界面
+                        </div>
+                        <div class="question-content">
+                            <p>尝试去 <a href="https://www.minecraft.net/zh-hans/login" target="_blank">官网</a> 重新登录或重启电脑，具体原因不明，推测是JVM的调用问题。</p>
+                            <p>如果都无效可以多等一会，一般最多五分钟左右可以加载出游戏窗口。</p>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            游戏崩溃
+                        </div>
+                        <div class="question-content">
+                            <p>优先将报错信息上传至 <a href="https://mclo.gs/" target="_blank">报错网站</a>，然后将链接提交给任意制作组成员，可以的话请附上崩溃时的操作情况。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">探索与资源</h2>
+                    <div class="question-card" id="exploration">
+                        <div class="question-header">
+                            单极磁石/分形硅石/光栅石等母岩怎么找
+                        </div>
+                        <div class="question-content">
+                            <p>各类母岩都在地下，建议使用矿机挖掘。后两者使用xaero世界地图的洞穴模式很容易就能找到。查询JEI获取更多信息。</p>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            基岩如何获取
+                        </div>
+                        <div class="question-content">
+                            <p>基岩需要使用虚空结晶制作的匠魂工具挖掘，对应特性名为 <span class="code">虚空</span>。</p>
+                            <p><em>提示: JEI可以搜中文来查找对应特性的匠魂材料</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">工业与制作</h2>
+                    <div class="question-card" id="industry">
+                        <div class="question-header">
+                            铋矿在哪挖
+                        </div>
+                        <div class="question-content">
+                            <p>这是虚拟矿脉，需要使用机械动力矿物钻井或沉浸工程的斗轮式挖掘机。前者矿脉名硫化铁矿脉，后者富辉铋矿脉。</p>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            怎么做钢
+                        </div>
+                        <div class="question-content">
+                            <p>Mek配方被锁到第二章了，前期使用沉浸高炉炼钢。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">其他问题</h2>
+                    <div class="question-card" id="other">
+                        <div class="question-header">
+                            没有一键整理吗
+                        </div>
+                        <div class="question-content">
+                            <p>默认键位<span class="code">Shift+R</span>，如果有冲突<span class="code">R+C</span>调出配置页面自行修改。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">使用条款</a>
+                <a href="#">隐私政策</a>
+                <a href="#">联系我们</a>
+                <a href="#">帮助中心</a>
+            </div>
+            <div class="copyright">
+                © 2025 CTI Wiki. 保留所有权利。
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 深色/浅色主题切换
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.setAttribute('data-theme', savedTheme);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                localStorage.removeItem('theme');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // 侧边栏导航高亮
+        const fqaNavLinks = document.querySelectorAll('.fqa-nav-link');
+        const questionCards = document.querySelectorAll('.question-card');
+
+        // 使用IntersectionObserver观察问题卡片的可见性
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    fqaNavLinks.forEach(link => {
+                        link.classList.remove('active');
+                        const href = link.getAttribute('href');
+                        if (href === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // 观察每个问题卡片
+        questionCards.forEach(card => {
+            const id = card.getAttribute('id');
+            if (id) {
+                observer.observe(card);
+            }
+        });
+
+        // 初始化：高亮第一个问题
+        fqaNavLinks[0].classList.add('active');
+
+        // 添加滚动动画效果
+        document.addEventListener('DOMContentLoaded', () => {
+            // 为所有需要动画效果的元素添加初始状态
+            const animatedElements = document.querySelectorAll('.content-section, .question-card, .section-title');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            });
+
+            // 使用IntersectionObserver观察元素进入视口
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            animatedElements.forEach(el => {
+                fadeObserver.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哎呀！页面迷路了 - 404 错误</title>
+    <style>
+        :root {
+            --primary-color: #5b26f7;
+            --primary-light: #e7e1ff;
+            --secondary-color: #f8f9fa;
+            --text-color: #1e1e1e;
+            --text-secondary: #6c757d;
+            --border-color: #e9ecef;
+            --radius: 14px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .error-icon {
+            font-size: 8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            animation: wobble 2s ease-in-out infinite;
+        }
+
+        @keyframes wobble {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(10deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .error-code {
+            font-size: 5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-color), #3498db);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(91, 38, 247, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #4a1da3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(91, 38, 247, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(91, 38, 247, 0.1);
+        }
+
+        .search-form {
+            max-width: 500px;
+            margin: 30px auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(91, 38, 247, 0.1);
+        }
+
+        .links {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .error-icon {
+                font-size: 5rem;
+            }
+
+            .error-code {
+                font-size: 4rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-icon">😢</div>
+        <h1>哎呀！页面迷路了</h1>
+        <div class="error-code">404</div>
+        <p>我们找不到您请求的页面。这可能是链接错误，或者该页面已被移除。不要担心，我们可以帮您找到正确的方向！</p>
+
+        <div class="buttons">
+            <a href="/" class="btn">返回首页</a>
+            <a href="/faq.md" class="btn btn-outline">查看帮助中心</a>
+        </div>
+
+        <div class="search-form">
+            <input type="text" class="search-input" placeholder="搜索您想要的内容...">
+        </div>
+
+        <div class="links">
+            <a href="/">首页</a>
+            <a href="/README.md">主页</a>
+            <a href="/changelog/main.html">更新日志</a>
+            <a href="/modlist.md">模组列表</a>
+            <a href="/jiang-hun-gong-ju/README.md">匠魂工具</a>
+            <a href="/jiang-hun-kui-jia/README.md">匠魂盔甲</a>
+            <a href="/fqa.md">FQA</a>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 CTI Team. @copyright All rights resevred</p>
+            <p>如果您需要帮助，请联系我们的支持团队：</p>
+            <p>邮箱：support@yourdomain.com</p>
+        </div>
+    </div>
+
+    <script>
+        // 为搜索框添加键盘事件
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                alert('搜索功能正在开发中...');
+            }
+        });
+
+        // 添加一些互动效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorIcon = document.querySelector('.error-icon');
+
+            document.addEventListener('mousemove', function(e) {
+                const x = (window.innerWidth - e.pageX) / window.innerWidth;
+                const y = (window.innerHeight - e.pageY) / window.innerHeight;
+
+                errorIcon.style.transform = `translate(${x * 5}px, ${y * 5}px)`;
+            });
+
+            document.addEventListener('mouseout', function() {
+                errorIcon.style.transform = 'translate(0, 0)';
+            });
+        });
+    </script>
+</body>
+</html>
