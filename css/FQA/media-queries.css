@@ -1,0 +1,34 @@
+@media (max-width: 960px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        width: 60%;
+    }
+
+    .page-actions {
+        flex-wrap: wrap;
+    }
+
+    .page-header, .page-content {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .search-container {
+        width: 100%;
+        margin: 12px 0;
+    }
+
+    .page-title {
+        font-size: 22px;
+    }
+}
