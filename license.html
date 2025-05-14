@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License - CTI Wiki</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/main-content.css">
+    <link rel="stylesheet" href="css/question-card.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/media-queries.css">
+    <link rel="stylesheet" href="css/sidebar-nav.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <style>
+        .warning-box, .success-box, .danger-box {
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .warning-box {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+        }
+
+        .success-box {
+            background-color: rgba(75, 192, 192, 0.1);
+            border-left: 4px solid #4bc0c0;
+        }
+
+        .danger-box {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .highlight {
+            background-color: rgba(255, 193, 7, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .red-text {
+            color: #ff4d4d;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <span>CTI Wiki</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeToggle">🌓</button>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="content">
+            <div class="page-header">
+                <h1 class="page-title">License</h1>
+            </div>
+
+            <div class="page-content">
+                <h2 id="rights">您可以自由地：</h2>
+                <p><strong>分享— 以任何媒体或格式复制和重新分发我们的作品，前提是您不公开分发我们的作品，我们认可您与您的朋友分享和游玩。</strong></p>
+                <p><strong>只要您遵守许可条款，我们就不会收回此授权。</strong></p>
+
+                <h2 id="terms">根据以下条款：</h2>
+                <p>1.您在社区中分享我们的作品时，您必须提供创作者和创作者的署名、版权声明、许可声明、免责声明或作品链接，并表明是否进行了修改，您可以以任何合理的方式进行此类做法，但不得以任何方式暗示许可方认可您或您的使用。</p>
+
+                <p>2. 您不得将作品用于<mark class="highlight red-text">商业目的</mark>。包括商业化服务器，利用我们的作品创建视频为非官方授权的群聊及其他作品引流。</p>
+
+                <p>3 如果您<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/#ref-some-kinds-of-mods">重新混合、转换或基于该素材进行构建</a>，则不得分发修改后的素材或作品本体。</p>
+
+                <p>4.您不得限制他人获得我们作品，包括但不限于付费下载（此举同样违反第二条）。</p>
+
+                <div class="warning-box">
+                    <h3 id="ming-que-jin-zhi-de-shang-ye-xing-wei">明确禁止的商业行为：</h3>
+                    <ul>
+                        <li>直接售卖：禁止以任何价格直接销售本整合包的任何版本或原创内容。</li>
+                        <li>收费下载：禁止设置任何形式的付费门槛以提供下载渠道。</li>
+                        <li>间接商业分发：
+                            <ul>
+                                <li>禁止将本整合包的任何版本或原创内容发布至付费平台（如付费粉丝群、付费 Pateron 等）。</li>
+                                <li>禁止将本整合包的任何版本或原创内容作为付费活动的福利或回报。无论收费名义是“赞助费”、“入群费”、“会员费”或任何其他名称，只要其结果是将整合包的访问权与金钱交易挂钩，即被视为违反本许可和 CC-NC 协议。</li>
+                                <li>禁止将本整合包作为任何需要付费才能参与的商业活动、服务或产品的附加赠品或奖励。</li>
+                            </ul>
+                        </li>
+                        <li>强制性捐赠：禁止要求用户必须捐赠或进行任何其他付费才能获取整合包的特定功能/更新。</li>
+                        <li>其他商业行为：用于商业化服务器（非强制性的捐赠行为则被允许）等其他利用整合包获利的其他商业行为。</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h3>作品代指：我们团队[CTItem]创建的mod，modpack，assets。</h3>
+                    <ul>
+                        <li>任务书文本、排版、设计逻辑</li>
+                        <li>自定义脚本文件（如 KubeJS 等）</li>
+                        <li>经过深度修改的配置文件</li>
+                        <li>整合包的特定资源（本地化文件、自制纹理、自制贴图等）</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box">
+                    <p><strong>此协议不为任何人提供许可或授权，您使用或游玩我们的作品意味着同意此协议，同时同意<a href="https://www.minecraft.net/zh-hans/eula">eula协议</a>。</strong></p>
+                    <p><strong>我们默认您使用minecraft的正版账号进行游玩，对于任何非正版情况下的任何问题与我们无关。</strong></p>
+                    <p><strong>对于您任何违反协议的责任不做担保，使用此作品的违法违规行为与我们无关。</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">使用条款</a>
+                <a href="#">隐私政策</a>
+                <a href="#">联系我们</a>
+                <a href="#">帮助中心</a>
+            </div>
+            <div class="copyright">
+                © 2025 CTI Wiki. 保留所有权利。
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/sidebar-highlight.js"></script>
+    <script src="js/scroll-animation.js"></script>
+</body>
+</html>
